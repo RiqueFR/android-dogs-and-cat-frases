@@ -1,5 +1,6 @@
 package com.example.teste
 
+import android.content.Context
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
@@ -15,8 +16,14 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
         supportActionBar?.hide()
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
-
         binding.storeButton.setOnClickListener(this)
+
+        val userPref = UserPreferences(this)
+        val name = userPref.getString(Constants.user_key)
+        if (name != "") { // name already set, send user to Frases activity
+            startActivity(Intent(this, FrasesActivity::class.java))
+            finish()
+        }
     }
 
     override fun onClick(p0: View) {
@@ -26,7 +33,9 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
                 TODO("Avisar o usuário para preencher o nome")
                 return
             }
-            TODO("Guardar nome")
+            val userPref = UserPreferences(this)
+            userPref.setString(Constants.user_key, name)
+
             startActivity(Intent(this, FrasesActivity::class.java))
             finish()
         }
