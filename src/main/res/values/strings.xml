@@ -1,0 +1,8 @@
+<resources>
+    <string name="app_name">Teste</string>
+    <string name="frase_main_screen">Frases de gatos e cachorros</string>
+    <string name="edit_text">Digite seu nome</string>
+    <string name="button_text">GUARDAR</string>
+    <string name="greeting_text">Olá,</string>
+    <string name="button_new_frase">GERAR OUTRA FRASE</string>
+</resources>

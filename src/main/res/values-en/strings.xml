@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Test</string>
+    <string name="frase_main_screen">Cat and Dog frases</string>
+    <string name="edit_text">Type your name</string>
+    <string name="button_text">SAVE</string>
+    <string name="greeting_text">Hello,</string>
+    <string name="button_new_frase">GENERATE NEW FRASE</string>
+</resources>
