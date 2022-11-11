@@ -21,9 +21,9 @@ class ClientRetrofit {
             }
             return INSTANCE
         }
-    }
 
-    fun <S> createService(className: Class<S>): S {
-        return getRetrofitInstance().create(className)
+        fun <S> createService(className: Class<S>): S {
+            return getClientInstance().create(className)
+        }
     }
 }

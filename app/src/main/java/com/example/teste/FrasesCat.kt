@@ -1,34 +1,38 @@
 package com.example.teste
 
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.ViewModel
+import com.example.teste.repository.api.client.ClientRetrofit
+import com.example.teste.repository.api.model.CatEntity
 import com.example.teste.repository.api.service.CatService
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
 import kotlin.random.Random
 
-class FrasesCat {
-    val frases : List<String> = listOf(
-        "Frase de gato 1",
-        "Frase de gato 2",
-        "Frase de gato 3",
-        "Frase de gato 4"
-    );
+class FrasesCat : ViewModel() {
+    private var frase = MutableLiveData<String>()
 
-    fun getFrase() : String {
-        val pos : Int = Random.nextInt(frases.size)
-        return frases[pos]
+    fun getFrase() : LiveData<String> {
+        return frase
     }
-    fun getAPI() : String {
-        call.enqueue(object : Callback<CatService> {
+
+    fun getAPI() {
+        val bpService = ClientRetrofit.createService(CatService::class.java)
+        val listCall: Call<CatEntity> = bpService.getFact()
+        listCall.enqueue(object : Callback<CatEntity> {
             override fun onResponse(
-                    call: Call<CatService>,
-                    response: Response<CatService>
+                    call: Call<CatEntity>,
+                    response: Response<CatEntity>
             ) {
-                val list = response.body()
+                frase.value = response.body()?.fact
+                println(frase.value)
             }
 
-            override fun onFailure(call: Call<CatService>, t: Throwable) {
-                val s = ""
+            override fun onFailure(call: Call<CatEntity>, t: Throwable) {
+                frase.value = "fail"
             }
-
         })
-
     }
 }
